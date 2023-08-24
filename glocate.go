@@ -110,16 +110,6 @@ var flags = []cli.Flag{
 	),
 	altsrc.NewBoolFlag(
 		&cli.BoolFlag{
-			Name:        "gitignore",
-			Usage:       "ignore files and directories specified in .gitignore",
-			Aliases:     []string{"gitIgnore"},
-			Category:    "cli and config file",
-			Destination: &conf.GitIgnore,
-			EnvVars:     []string{"GLOCATE_GITIGNORE"},
-		},
-	),
-	altsrc.NewBoolFlag(
-		&cli.BoolFlag{
 			Name:        "ignorehidden",
 			Usage:       "ignore hidden files and directories",
 			Aliases:     []string{"ignoreHidden"},

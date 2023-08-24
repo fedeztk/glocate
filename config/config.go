@@ -13,7 +13,6 @@ type Config struct {
 	Directories     []string
 	IgnoredPatterns []string `yaml:",omitempty"`
 	IgnoreSymlinks  bool     `yaml:",omitempty"`
-	GitIgnore       bool     `yaml:",omitempty"`
 	IgnoreHidden    bool     `yaml:",omitempty"`
 }
 
@@ -24,7 +23,6 @@ ignoredPatterns:
   - "{{ .CacheDir }}"
 
 ignoreSymlinks: true
-gitIgnore: false
 ignoreHidden: false`
 
 func GetConfigFileName() string {

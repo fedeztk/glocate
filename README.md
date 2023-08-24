@@ -1,10 +1,10 @@
 # Glocate
 
-**A simple cli tool for indexing/searching files in your filesystem**
-![gopher](https://github.com/egonelbre/gophers/blob/master/vector/adventure/hiking.svg)
-
 [![go report](https://goreportcard.com/badge/github.com/fedeztk/glocate)](https://goreportcard.com/report/github.com/fedeztk/glocate)
 ![CI/CD](https://github.com/fedeztk/glocate/actions/workflows/go.yaml/badge.svg)
+
+**A simple cli tool for indexing/searching files in your filesystem**
+![gopher](https://github.com/egonelbre/gophers/blob/master/vector/adventure/hiking.svg)
 
 `glocate` is an alternative to the `locate`/`updatedb` commands written in Go.
 

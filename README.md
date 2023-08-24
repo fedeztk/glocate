@@ -1,8 +1,9 @@
 # Glocate
 
 **A simple cli tool for indexing/searching files in your filesystem**
+![gopher](https://github.com/egonelbre/gophers/blob/master/vector/adventure/hiking.svg)
 
-`glocate` is an alternative to the locate/updatedb commands written in Go.
+`glocate` is an alternative to the `locate`/`updatedb` commands written in Go.
 
 ## Installation
 

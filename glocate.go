@@ -33,14 +33,13 @@ var app = &cli.App{
 			if cCtx.NArg() != 1 {
 				return fmt.Errorf("wrong number of arguments, expected 1, got %d", cCtx.NArg())
 			}
-			engine.Search(cCtx.Args().First(), conf)
+			engine.Search(cCtx.Args().First(), conf, cCtx.Bool("smartcase"))
 		}
 		return nil
 	},
-	Name:  appName,
-	Usage: "a cli tool for searching files in your filesystem",
-	Description: `glocate is a fast and lightweight alternative to locate(1) and updatedb(8) written in Go.
-Uses smartcase by default, i.e. case-sensitive if the pattern contains uppercase characters, case-insensitive otherwise`,
+	Name:                   appName,
+	Usage:                  "a cli tool for searching files in your filesystem",
+	Description:            `glocate is a fast and lightweight alternative to locate(1) and updatedb(8) written in Go`,
 	UseShortOptionHandling: true,
 	EnableBashCompletion:   true,
 	Before: func(cCtx *cli.Context) error {
@@ -77,10 +76,17 @@ var flags = []cli.Flag{
 		Usage:    "config file to use",
 		Category: "cli only",
 	},
+	&cli.BoolFlag{
+		Name:     "smartcase",
+		Aliases:  []string{"s"},
+		Value:    false,
+		Usage:    "enable smart case, i.e. case insensitive if the pattern contains lowercase characters, case sensitive otherwise",
+		Category: "cli only",
+	},
 	// cli/env/config file flags
 	altsrc.NewBoolFlag(
 		&cli.BoolFlag{
-			Name:        "ignore-symlinks",
+			Name:        "ignoresymlinks",
 			Usage:       "ignore symlinks",
 			Aliases:     []string{"ignoreSymlinks"},
 			Category:    "cli and config file",
@@ -123,7 +129,7 @@ var flags = []cli.Flag{
 	),
 	altsrc.NewStringSliceFlag(
 		&cli.StringSliceFlag{
-			Name:     "ignored-patterns",
+			Name:     "ignoredpatterns",
 			Usage:    "patterns to ignore",
 			Category: "cli and config file",
 			Aliases:  []string{"ignoredPatterns"},

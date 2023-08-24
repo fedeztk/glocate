@@ -9,9 +9,9 @@ import (
 	"github.com/fedeztk/glocate/config"
 )
 
-// Search searches for a pattern in the lz4 database. By default it uses smartcase
-func Search(reg string, conf config.Config) {
-	if isLowerCase(reg) {
+// Search searches for a pattern in the lz4 database
+func Search(reg string, conf config.Config, smartcase bool) {
+	if smartcase && isLowerCase(reg) {
 		reg = "(?i)" + reg
 	}
 

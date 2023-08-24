@@ -35,7 +35,7 @@ glocate --help
 
 The configuration can be done via environment variables, flags, and a config file.
 
-The config file is in yaml format. It will be created automatically if it does not exist under `$HOME/.config/glocate/config.yaml`. Default values are shown below.
+The config file is in yaml format. It will be created automatically if it does not exist under `$HOME/.config/glocate/glocate.yaml`. Default values are shown below.
 ```yaml
 directories: # directories to index
   - "$HOME"

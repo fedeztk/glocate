@@ -10,6 +10,8 @@ import (
 
 	"github.com/urfave/cli/v2"
 	"github.com/urfave/cli/v2/altsrc"
+
+	"github.com/carlmjohnson/versioninfo"
 )
 
 var (
@@ -57,6 +59,7 @@ var app = &cli.App{
 		return altsrc.InitInputSourceWithContext(flags, altsrc.NewYamlSourceFromFlagFunc("config"))(cCtx)
 	},
 	HideHelpCommand: true,
+	Version:         versioninfo.Short(),
 }
 
 var flags = []cli.Flag{
@@ -157,6 +160,13 @@ func main() {
 FLAGS PRECEDENCE:
 	flags > env vars > config file > default value
 `, cli.AppHelpTemplate)
+
+	cli.VersionFlag = &cli.BoolFlag{
+		Name:    "version",
+		Aliases: []string{"V"},
+		Usage:   "print version",
+		Hidden:  false,
+	}
 
 	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)

@@ -1,9 +1,10 @@
 module github.com/fedeztk/glocate
 
-go 1.20
+go 1.18
 
 require (
 	github.com/adrg/xdg v0.4.0
+	github.com/carlmjohnson/versioninfo v0.22.5
 	github.com/charmbracelet/log v0.2.3
 	github.com/opencoff/go-walk v0.5.0
 	github.com/pierrec/lz4 v2.6.1+incompatible

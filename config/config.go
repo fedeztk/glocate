@@ -9,6 +9,7 @@ import (
 	"github.com/charmbracelet/log"
 )
 
+// Config is the configuration struct
 type Config struct {
 	Directories     []string
 	IgnoredPatterns []string `yaml:",omitempty"`
@@ -25,6 +26,7 @@ ignoredPatterns:
 ignoreSymlinks: true
 ignoreHidden: false`
 
+// GetConfigFileName returns the config file name
 func GetConfigFileName() string {
 	confDir := xdg.ConfigHome
 	home := xdg.Home
@@ -40,6 +42,7 @@ func GetConfigFileName() string {
 	return configFileName
 }
 
+// WriteDefaultConfigIfNotExist writes the default config file if it doesn't exist
 func WriteDefaultConfigIfNotExist(configFileName string) {
 	if _, err := os.Stat(configFileName); err == nil {
 		return

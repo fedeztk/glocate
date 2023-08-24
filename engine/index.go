@@ -11,6 +11,7 @@ import (
 	"github.com/opencoff/go-walk"
 )
 
+// Index indexes the directories specified in the config struct
 func Index(conf config.Config) {
 	if len(conf.Directories) == 0 {
 		log.Fatal("no directories to index")

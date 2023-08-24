@@ -12,10 +12,13 @@ import (
 	"github.com/urfave/cli/v2/altsrc"
 )
 
-var appName = "glocate"
-var configFileName = config.GetConfigFileName()
-var conf = config.Config{}
-var debugLevel int
+var (
+	appName               = "glocate"
+	conf                  = config.Config{}
+	debugLevel            = 1
+	defaultConfigFileName = config.GetConfigFileName()
+	configFileName        string
+)
 
 var app = &cli.App{
 	Flags: flags,
@@ -26,7 +29,7 @@ var app = &cli.App{
 		},
 	},
 	Action: func(cCtx *cli.Context) error {
-		log.Debug(fmt.Sprintf("starting with debug level: %d", debugLevel))
+		log.Debugf("starting with debug level: %d", debugLevel)
 		if cCtx.Bool("index") {
 			engine.Index(conf)
 		} else {
@@ -43,7 +46,14 @@ var app = &cli.App{
 	UseShortOptionHandling: true,
 	EnableBashCompletion:   true,
 	Before: func(cCtx *cli.Context) error {
+		// set default log level
 		log.SetLevel(log.ErrorLevel)
+
+		// create default config file if it doesn't exist
+		if configFileName == defaultConfigFileName {
+			config.WriteDefaultConfigIfNotExist(defaultConfigFileName)
+		}
+
 		return altsrc.InitInputSourceWithContext(flags, altsrc.NewYamlSourceFromFlagFunc("config"))(cCtx)
 	},
 	HideHelpCommand: true,
@@ -70,11 +80,11 @@ var flags = []cli.Flag{
 		Category: "cli only",
 	},
 	&cli.StringFlag{
-		// TODO: implement this
-		Name:     "config",
-		Value:    configFileName,
-		Usage:    "config file to use",
-		Category: "cli only",
+		Name:        "config",
+		Value:       defaultConfigFileName,
+		Usage:       "config file to use",
+		Category:    "cli only",
+		Destination: &configFileName,
 	},
 	&cli.BoolFlag{
 		Name:     "smartcase",

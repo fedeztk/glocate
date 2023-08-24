@@ -29,12 +29,9 @@ ignoreHidden: false`
 
 func GetConfigFileName() string {
 	confDir := xdg.ConfigHome
-	home, err := os.UserHomeDir()
+	home := xdg.Home
 
 	if confDir == "" {
-		if err != nil {
-			log.Fatal(err)
-		}
 		confDir = filepath.Join(home, ".config")
 	}
 
@@ -42,21 +39,23 @@ func GetConfigFileName() string {
 
 	configFileName := filepath.Join(confDir, "glocate.yaml")
 
-	if _, err := os.Stat(configFileName); os.IsNotExist(err) {
-		os.MkdirAll(confDir, os.ModePerm)
-		writeDefaultConfig(configFileName, home)
-	}
-
 	return configFileName
 }
 
-func writeDefaultConfig(configFileName, home string) {
+func WriteDefaultConfigIfNotExist(configFileName string) {
+	if _, err := os.Stat(configFileName); err == nil {
+		return
+	}
+
+	log.Errorf("no config file found, creating default config file at %s", configFileName)
+
+	os.MkdirAll(filepath.Dir(configFileName), os.ModePerm)
+
 	f, err := os.Create(configFileName)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer f.Close()
-	log.Errorf("no config file found, creating default config file at %s", configFileName)
 
 	t, err := template.New("config").Parse(defaultConfigTemplate)
 	if err != nil {
@@ -67,7 +66,7 @@ func writeDefaultConfig(configFileName, home string) {
 		HomeDir  string
 		CacheDir string
 	}{
-		HomeDir:  home,
+		HomeDir:  xdg.Home,
 		CacheDir: xdg.CacheHome,
 	})
 

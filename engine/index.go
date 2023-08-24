@@ -55,7 +55,8 @@ func Index(conf config.Config) {
 	// read errors from the channel
 	go func() {
 		for e := range errChan {
-			log.Error(e)
+			// log error only in debug mode since most of the errors are permission denied
+			log.Debugf("Error while walking: %s", e)
 		}
 		wg.Done()
 	}()

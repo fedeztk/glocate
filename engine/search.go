@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"fmt"
 	"regexp"
 
 	"github.com/charmbracelet/log"
@@ -21,7 +22,7 @@ func Search(reg string, conf config.Config) {
 
 	for path := range decompressPipe() {
 		if re.MatchString(path) {
-			println(path)
+			fmt.Println(path)
 		}
 	}
 }

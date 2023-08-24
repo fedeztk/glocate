@@ -29,7 +29,7 @@ func compressPipe(r chan walk.Result, w io.Writer) error {
 func decompressPipe() chan string {
 	f, err := os.Open(dbFileName)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%s. Please run glocate -i to create the database", err)
 	}
 
 	zr := lz4.NewReader(f)

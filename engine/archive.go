@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"bytes"
 	"io"
 	"os"
 	"strings"
@@ -36,22 +37,16 @@ func decompressPipe() chan string {
 
 	r := make(chan string)
 
-	// read the file line by line and send it to the channel
 	go func() {
-		buf := make([]byte, 1024)
-		for {
-			n, err := zr.Read(buf)
-			if err != nil {
-				if err == io.EOF {
-					break
-				}
-				log.Fatal(err)
-			}
-			paths := strings.Split(string(buf[:n]), "\n")
-			for _, path := range paths {
-				if path != "" {
-					r <- path
-				}
+		buf := bytes.Buffer{}
+		_, err := io.Copy(&buf, zr)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for _, path := range strings.Split(buf.String(), "\n") {
+			if path != "" {
+				r <- path
 			}
 		}
 		close(r)

@@ -28,7 +28,7 @@ func Index(conf config.Config) {
 		&walk.Options{
 			FollowSymlinks: !conf.IgnoreSymlinks,
 			// Excludes:       conf.IgnoredPatterns,
-			Type: walk.ALL,
+			Type: walk.FILE | walk.DIR | walk.SYMLINK,
 			Filter: func(filePath string, info os.FileInfo) bool {
 				if conf.IgnoreHidden {
 					hidden, err := isHidden(filepath.Base(filePath))

@@ -38,7 +38,7 @@ var app = &cli.App{
 			if cCtx.NArg() != 1 {
 				return fmt.Errorf("wrong number of arguments, expected 1, got %d", cCtx.NArg())
 			}
-			engine.Search(cCtx.Args().First(), conf, cCtx.Bool("smartcase"))
+			engine.Search(cCtx.Args().First(), conf, cCtx.Bool("smartcase"), cCtx.Bool("color"))
 		}
 		return nil
 	},
@@ -94,6 +94,13 @@ var flags = []cli.Flag{
 		Aliases:  []string{"s"},
 		Value:    false,
 		Usage:    "enable smart case, i.e. case insensitive if the pattern contains lowercase characters, case sensitive otherwise",
+		Category: "cli only",
+	},
+	&cli.BoolFlag{
+		Name:     "color",
+		Aliases:  []string{"c"},
+		Value:    false,
+		Usage:    "enable colored output if stdout is a terminal. Warning: this will slow down the search",
 		Category: "cli only",
 	},
 	// cli/env/config file flags

@@ -71,3 +71,8 @@ func isLowerCase(s string) bool {
 	}
 	return true
 }
+
+func isPiped() bool {
+	fi, _ := os.Stdout.Stat()
+	return fi.Mode()&os.ModeCharDevice == 0
+}

@@ -21,13 +21,17 @@ Create the index database
 glocate --index
 ```
 
-Search for a pattern (regex are supported out of the box), by default it is case sensitive.
+Search for a pattern (regex are supported out of the box)
 ```bash
-glocate "pattern"
+glocate "pattern"             # case sensitive, no colored matches
 ```
 
 ```bash
 glocate --smartcase "pattern" # case insensitive if the pattern is all lowercase
+```
+
+```bash
+glocate --color "pattern"     # colorize the output
 ```
 
 For a full list of options and shortcuts see the help page

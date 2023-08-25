@@ -23,7 +23,7 @@ glocate --index
 
 Search for a pattern (regex are supported out of the box)
 ```bash
-glocate "pattern"             # case sensitive, no colored matches
+glocate "pattern"             # case sensitive
 ```
 
 ```bash

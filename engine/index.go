@@ -3,7 +3,6 @@ package engine
 import (
 	"os"
 	"path/filepath"
-	"sync"
 
 	"github.com/charmbracelet/log"
 
@@ -19,9 +18,6 @@ func Index(conf config.Config) {
 
 	directories := cleanDirectories(conf.Directories)
 	regexes := buildRegexes(conf.IgnoredPatterns)
-
-	wg := sync.WaitGroup{}
-	wg.Add(1)
 
 	filePipe, errChan := walk.Walk(
 		directories,
@@ -59,7 +55,6 @@ func Index(conf config.Config) {
 			// log error only in debug mode since most of the errors are permission denied
 			log.Debugf("Error while walking: %s", e)
 		}
-		wg.Done()
 	}()
 
 	// create the db file
